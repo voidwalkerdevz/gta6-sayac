@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GTA VI’nın çıkmasına kalan süre</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#fff;--muted:#ffd7e8;--pink:#ff4f9a;--orange:#ff9a3c;--purple:#2a0b4d;--night:#14052b;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;min-height:100%;color:var(--ink);background:var(--night);font:16px/1.5 "Archivo",system-ui,sans-serif;overflow-x:hidden;
+background-image:radial-gradient(circle at 50% 38%,var(--orange) 0,var(--pink) 18%,transparent 19%),linear-gradient(180deg,var(--purple) 0%,#8a1f6b 38%,var(--pink) 62%,var(--orange) 80%,var(--night) 80.2%);background-attachment:fixed}
+main{max-width:640px;margin:0 auto;min-height:100vh;padding:48px 16px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.vi{font:400 clamp(96px,32vw,190px)/0.9 "Anton",Impact,sans-serif;margin:0;background:linear-gradient(180deg,#fff 10%,#ffc0dd 55%,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 rgba(42,11,77,.55))}
+h1{font:400 clamp(20px,6vw,30px)/1.2 "Anton",Impact,sans-serif;letter-spacing:.04em;margin:12px 0 28px;text-shadow:0 2px 0 rgba(42,11,77,.7)}
+.digits{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:rgba(20,5,43,.62);border:2px solid var(--pink);border-radius:16px;padding:18px 8px;backdrop-filter:blur(6px)}
+.digits b{display:block;font:400 clamp(38px,12vw,72px)/1 "Anton",Impact,sans-serif;font-variant-numeric:tabular-nums}
+.digits span{font-size:13px;color:var(--muted)}
+.done{grid-column:1/-1;font:400 34px "Anton",Impact,sans-serif;color:var(--orange)}
+.date{margin-top:20px;font-weight:700;text-shadow:0 1px 0 rgba(42,11,77,.8)}
+.note{font-size:13px;color:var(--muted);margin-top:6px}
+@media(prefers-reduced-motion:no-preference){.vi{animation:glow 3s ease-in-out infinite alternate}@keyframes glow{to{filter:drop-shadow(0 6px 0 rgba(42,11,77,.55)) drop-shadow(0 0 22px rgba(255,79,154,.7))}}}
+</style>
+</head>
+<body>
+<main>
+  <p class="vi" aria-hidden="true">VI</p>
+  <h1>GTA VI’nın çıkmasına</h1>
+  <div class="digits" id="digits" role="timer"></div>
+  <p class="date">19 Kasım 2026</p>
+  <p class="note">Sayaç, yerel saatinizle o günün başlangıcına göre sayar.</p>
+</main>
+<script>
+var target=new Date(2026,10,19,0,0,0).getTime();
+function cells(a,b,c,d){
+  var l=["gün","saat","dakika","saniye"],v=[a,b,c,d];
+  return v.map(function(x,i){return "<div><b>"+x+"</b><span>"+l[i]+"</span></div>"}).join("");
+}
+function tick(){
+  var ms=target-Date.now(),dg=document.getElementById("digits");
+  if(ms<=0){dg.innerHTML='<div class="done">GTA VI çıktı!</div>';return}
+  var s=Math.floor(ms/1000);
+  dg.innerHTML=cells(Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60);
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
